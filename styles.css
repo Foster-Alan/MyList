@@ -24,6 +24,37 @@ button {
     cursor: pointer;
 }
 
+button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    margin: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  
+  button:active {
+    background-color: #004094;
+  }
+  
+  #limpar {
+    background-color: #dc3545;
+  }
+  
+  #limpar:hover {
+    background-color: #c82333;
+  }
+  
+  #limpar:active {
+    background-color: #a71d2a;
+  }
+
 .Add {
     padding: 10px 20px;
 }
@@ -42,10 +73,13 @@ li {
     gap: 1rem;
     justify-content: flex-end;
     align-items: center;
+    background-color: rgb(218, 195, 195);
 }
 
 li button {
     max-block-size: 1.5rem;
+    display: flex;
+    align-items: center;
 }
 
 .delete-button {
@@ -55,3 +89,57 @@ li button {
     padding: 5px 10px;
     cursor: pointer;
 }
+
+.calculadora {
+    /* background-color: red; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
+    gap: 1rem;
+
+}
+
+.maisMenos {
+    display: flex;
+    gap: 2rem;
+    font-size: 20%;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+    margin: 0;
+    background-color: #f0f0f0;
+  }
+  
+  h2 {
+    color: #333;
+  }
+  
+  #resultado {
+    margin: 20px 0;
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 300px;
+    text-align: center;
+  }
+  
+  input[type="number"] {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: calc(100% - 24px); /* Input width minus padding and border */
+  }
+  
+  #limpar {
+    background-color: red;
+  }

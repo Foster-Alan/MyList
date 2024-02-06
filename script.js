@@ -1,95 +1,127 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const taskList = document.getElementById("taskList");
-    const taskInput = document.getElementById("taskInput");
-    const addTaskButton = document.getElementById("addTask");
+  const taskList = document.getElementById("taskList");
+  const taskInput = document.getElementById("taskInput");
+  const addTaskButton = document.getElementById("addTask");
 
-    addTaskButton.addEventListener("click", addTask);
-    taskList.addEventListener("click", handleTaskActions);
+  addTaskButton.addEventListener("click", addTask);
+  taskList.addEventListener("click", handleTaskActions);
 
-    // Carregar tarefas do localStorage ao carregar a página
-    loadTasksFromLocalStorage();
+  // Carregar tarefas do localStorage ao carregar a página
+  loadTasksFromLocalStorage();
 
-    function addTask() {
-        const taskText = taskInput.value;
-        if (taskText.trim() === "") return;
+  function addTask() {
+    const taskText = taskInput.value;
+    if (taskText.trim() === "") return;
 
-        const li = document.createElement("li");
-        li.innerHTML = `
+    const li = document.createElement("li");
+    li.innerHTML = `
             <span>${taskText}</span>
             <button class="move-up">▲</button>
             <button class="move-down">▼</button>
             <button class="delete-button">Excluir</button>
         `;
-        taskList.appendChild(li);
+    taskList.appendChild(li);
 
-        saveTaskToLocalStorage();
+    saveTaskToLocalStorage();
 
-        taskInput.value = "";
+    taskInput.value = "";
+  }
+
+  function handleTaskActions(event) {
+    if (event.target.classList.contains("delete-button")) {
+      const li = event.target.parentElement;
+      removeTaskFromLocalStorage(li.querySelector("span").textContent);
+      taskList.removeChild(li);
+    } else if (event.target.classList.contains("move-up")) {
+      const li = event.target.parentElement;
+      moveTaskUp(li);
+    } else if (event.target.classList.contains("move-down")) {
+      const li = event.target.parentElement;
+      moveTaskDown(li);
     }
+  }
 
-    function handleTaskActions(event) {
-        if (event.target.classList.contains("delete-button")) {
-            const li = event.target.parentElement;
-            removeTaskFromLocalStorage(li.querySelector("span").textContent);
-            taskList.removeChild(li);
-        } else if (event.target.classList.contains("move-up")) {
-            const li = event.target.parentElement;
-            moveTaskUp(li);
-        } else if (event.target.classList.contains("move-down")) {
-            const li = event.target.parentElement;
-            moveTaskDown(li);
-        }
+  function saveTaskToLocalStorage() {
+    let tasks = getTasksFromLocalStorage();
+    tasks.push(taskInput.value);
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+  }
+
+  function removeTaskFromLocalStorage(taskText) {
+    let tasks = getTasksFromLocalStorage();
+    tasks = tasks.filter((task) => task !== taskText);
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+  }
+
+  function moveTaskUp(li) {
+    if (li.previousElementSibling) {
+      const parent = li.parentElement;
+      parent.insertBefore(li, li.previousElementSibling);
+      updateTasksOrder();
     }
+  }
 
-    function saveTaskToLocalStorage() {
-        let tasks = getTasksFromLocalStorage();
-        tasks.push(taskInput.value);
-        localStorage.setItem("tasks", JSON.stringify(tasks));
+  function moveTaskDown(li) {
+    if (li.nextElementSibling) {
+      const parent = li.parentElement;
+      parent.insertBefore(li.nextElementSibling, li);
+      updateTasksOrder();
     }
+  }
 
-    function removeTaskFromLocalStorage(taskText) {
-        let tasks = getTasksFromLocalStorage();
-        tasks = tasks.filter(task => task !== taskText);
-        localStorage.setItem("tasks", JSON.stringify(tasks));
-    }
+  function updateTasksOrder() {
+    const taskTexts = Array.from(taskList.querySelectorAll("li span")).map(
+      (span) => span.textContent
+    );
+    localStorage.setItem("tasks", JSON.stringify(taskTexts));
+  }
 
-    function moveTaskUp(li) {
-        if (li.previousElementSibling) {
-            const parent = li.parentElement;
-            parent.insertBefore(li, li.previousElementSibling);
-            updateTasksOrder();
-        }
-    }
+  function getTasksFromLocalStorage() {
+    const tasks = localStorage.getItem("tasks");
+    return tasks ? JSON.parse(tasks) : [];
+  }
 
-    function moveTaskDown(li) {
-        if (li.nextElementSibling) {
-            const parent = li.parentElement;
-            parent.insertBefore(li.nextElementSibling, li);
-            updateTasksOrder();
-        }
-    }
-
-    function updateTasksOrder() {
-        const taskTexts = Array.from(taskList.querySelectorAll("li span")).map(span => span.textContent);
-        localStorage.setItem("tasks", JSON.stringify(taskTexts));
-    }
-
-    function getTasksFromLocalStorage() {
-        const tasks = localStorage.getItem("tasks");
-        return tasks ? JSON.parse(tasks) : [];
-    }
-
-    function loadTasksFromLocalStorage() {
-        const tasks = getTasksFromLocalStorage();
-        for (const task of tasks) {
-            const li = document.createElement("li");
-            li.innerHTML = `
+  function loadTasksFromLocalStorage() {
+    const tasks = getTasksFromLocalStorage();
+    for (const task of tasks) {
+      const li = document.createElement("li");
+      li.innerHTML = `
                 <span>${task}</span>
                 <button class="move-up">▲</button>
                 <button class="move-down">▼</button>
                 <button class="delete-button">Excluir</button>
             `;
-            taskList.appendChild(li);
-        }
+      taskList.appendChild(li);
     }
+  }
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+  if (localStorage.getItem("resultado")) {
+    document.getElementById("resultado").innerText =
+      "Valor: " + localStorage.getItem("resultado");
+  }
+});
+
+function somar() {
+  const valor = parseInt(document.getElementById("valor").value);
+  const resultadoAtual = parseInt(localStorage.getItem("resultado") || "0");
+  const novoResultado = resultadoAtual + valor;
+  localStorage.setItem("resultado", novoResultado);
+  document.getElementById("resultado").innerText =
+    "Valor: " + novoResultado;
+}
+
+function subtrair() {
+  const valor = parseInt(document.getElementById("valor").value);
+  const resultadoAtual = parseInt(localStorage.getItem("resultado") || "0");
+  const novoResultado = resultadoAtual - valor;
+  localStorage.setItem("resultado", novoResultado);
+  document.getElementById("resultado").innerText =
+    "Valor: " + novoResultado;
+}
+
+function limpar() {
+  localStorage.setItem("resultado", "0");
+  document.getElementById("resultado").innerText = "Valor: 0";
+}
