@@ -110,6 +110,9 @@ function somar() {
   localStorage.setItem("resultado", novoResultado);
   document.getElementById("resultado").innerText =
     "Valor: " + novoResultado;
+  
+  // Limpar o campo de entrada após a soma
+  document.getElementById("valor").value = "";
 }
 
 function subtrair() {
@@ -119,7 +122,11 @@ function subtrair() {
   localStorage.setItem("resultado", novoResultado);
   document.getElementById("resultado").innerText =
     "Valor: " + novoResultado;
+  
+  // Limpar o campo de entrada após a subtração
+  document.getElementById("valor").value = "";
 }
+
 
 function limpar() {
   localStorage.setItem("resultado", "0");
