@@ -104,28 +104,27 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function somar() {
-  const valor = parseInt(document.getElementById("valor").value);
-  const resultadoAtual = parseInt(localStorage.getItem("resultado") || "0");
+  const valor = parseFloat(document.getElementById("valor").value.replace(",", "."));
+  const resultadoAtual = parseFloat(localStorage.getItem("resultado") || "0");
   const novoResultado = resultadoAtual + valor;
-  localStorage.setItem("resultado", novoResultado);
+  localStorage.setItem("resultado", novoResultado.toFixed(2));
   document.getElementById("resultado").innerText =
-    "Valor: " + novoResultado;
+    "Valor: " + novoResultado.toFixed(2);
   
-  // Limpar o campo de entrada após a soma
   document.getElementById("valor").value = "";
 }
 
 function subtrair() {
-  const valor = parseInt(document.getElementById("valor").value);
-  const resultadoAtual = parseInt(localStorage.getItem("resultado") || "0");
+  const valor = parseFloat(document.getElementById("valor").value.replace(",", "."));
+  const resultadoAtual = parseFloat(localStorage.getItem("resultado") || "0");
   const novoResultado = resultadoAtual - valor;
-  localStorage.setItem("resultado", novoResultado);
+  localStorage.setItem("resultado", novoResultado.toFixed(2));
   document.getElementById("resultado").innerText =
-    "Valor: " + novoResultado;
+    "Valor: " + novoResultado.toFixed(2);
   
-  // Limpar o campo de entrada após a subtração
   document.getElementById("valor").value = "";
 }
+
 
 
 function limpar() {
