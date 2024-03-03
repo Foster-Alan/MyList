@@ -1,10 +1,25 @@
 body {
     overflow-y: auto;
     font-family: Arial, sans-serif;
-    text-align: center;
-}
+    text-align: center; 
+  }
 
-.Tasks {
+  body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+    margin: 0;
+    background-image: url("/img/fundo.jpeg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: #32232F;
+  }
+  
+  .Tasks {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -14,11 +29,18 @@ body {
 }
 
 h1 {
-    color: #333;
+    color: #f7f7f7;
+    text-shadow: 4px 4px 4px #BD2C0A;
 }
 
 .task-container {
     margin: 10rem;
+}
+
+.task-container input {
+  border-radius: 25px;
+  text-align: center;
+  color: #B61E00;
 }
 
 input[type="text"] {
@@ -35,7 +57,7 @@ button {
 }
 
 button {
-    background-color: #007bff;
+    background-color: #B65847;
     color: white;
     padding: 10px 15px;
     border: none;
@@ -46,7 +68,7 @@ button {
   }
   
   button:hover {
-    background-color: #0056b3;
+    background-color: #FFFDD5;
   }
   
   button:active {
@@ -76,14 +98,13 @@ ul {
 
 li {
     margin: 1rem;
-    background-color: #f0f0f0;
+    background-color: #C45638;
     padding: 1rem;
     border-radius: 5px;
     display: flex;
     gap: 1rem;
     justify-content: flex-end;
     align-items: center;
-    background-color: rgb(218, 195, 195);
 }
 
 li button {
@@ -116,20 +137,10 @@ li button {
     gap: 2rem;
     font-size: 20%;
 }
-
-body {
-    font-family: Arial, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    height: 100vh;
-    margin: 0;
-    background-color: #f0f0f0;
-  }
   
   h2 {
-    color: #333;
+    color: #f7f7f7;
+    text-shadow: 4px 4px 4px #BD2C0A;
   }
   
   #resultado {
@@ -152,4 +163,11 @@ body {
   
   #limpar {
     background-color: red;
+  }
+
+  #taskList {
+    border: 2px solid black;
+    background-color: #33232D;
+    color: white;
+    border-radius: 20px;
   }
