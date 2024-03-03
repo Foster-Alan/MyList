@@ -132,6 +132,13 @@ li button {
 
 }
 
+.calculadora input {
+  border-radius: 25px;
+  text-align: center;
+  color: #B61E00;
+
+}
+
 .maisMenos {
     display: flex;
     gap: 2rem;
