@@ -1,180 +1,528 @@
+/* =======================
+   ESTILO GLOBAL
+======================= */
 body {
-    overflow-y: auto;
-    font-family: Arial, sans-serif;
-    text-align: center; 
-  }
+  margin: 0;
+  font-family: "Segoe UI", sans-serif;
+  background: radial-gradient(circle at top, #1a1a1d 0%, #0d0d0f 100%);
+  color: #f7f7f7;
+  min-height: 100vh;
 
-  body {
-    font-family: Arial, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    height: 100vh;
-    margin: 0;
-    background-image: url("/img/fundo.jpeg");
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-color: #32232F;
-  }
-  
-  .Tasks {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  align-content: center;
-  margin: 20px;
-  max-height: 100vh;
+  justify-content: center;
+  align-items: flex-start;
+
+  padding: 30px 10px;
+}
+
+/* =======================
+   ÁREA PRINCIPAL
+======================= */
+.Tasks {
+  width: 95%;
+  max-width: 600px;
+  text-align: center;
 }
 
 h1 {
-    color: #f7f7f7;
-    text-shadow: 4px 4px 4px #BD2C0A;
+  font-family: "Cinzel", serif;
+  font-size: 2rem;
+  letter-spacing: 1px;
+  color: #f6d26b;
+  text-shadow: 3px 3px 10px #b61e00;
 }
 
-.task-container {
-    margin: 10rem;
+h2 {
+  color: #00ffbf;
+  text-shadow: 0px 0px 10px #00ffaa;
 }
 
-.task-container input {
+/* =======================
+   INPUT E BOTÕES
+======================= */
+input[type="text"],
+input[type="number"] {
+  width: 80%;
+  padding: 12px;
+  margin-top: 10px;
   border-radius: 25px;
+
+  border: 1px solid #444;
+  background-color: #171717;
+  color: #f7f7f7;
   text-align: center;
-  color: #B61E00;
+  font-size: 1rem;
+
+  transition: 0.25s ease-in-out;
 }
 
-input[type="text"] {
-    width: 70%;
-    padding: 10px;
-}
-
-button {
-    /* padding: 10px 20px; */
-    background-color: #333;
-    color: #fff;
-    border: none;
-    cursor: pointer;
+input:focus {
+  outline: none;
+  box-shadow: 0 0 10px #00ffbb;
+  border-color: #00ffaa;
 }
 
 button {
-    background-color: #B65847;
-    color: white;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 5px;
-    margin: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  button:hover {
-    background-color: #FFFDD5;
-  }
-  
-  button:active {
-    background-color: #004094;
-  }
-  
-  #limpar {
-    background-color: #dc3545;
-  }
-  
-  #limpar:hover {
-    background-color: #c82333;
-  }
-  
-  #limpar:active {
-    background-color: #a71d2a;
-  }
+  background: linear-gradient(180deg, #b65847, #8e3e32);
+  border: none;
+  color: white;
 
-.Add {
-    padding: 10px 20px;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin: 5px;
+
+  font-weight: bold;
+  letter-spacing: 1px;
+  transition: 0.3s ease;
 }
 
-ul {
-    list-style-type: none;
-    padding: 0;
+button:hover {
+  background: #f6d26b;
+  color: #111;
+  box-shadow: 0 0 10px #f6d26b;
+}
+
+button:active {
+  transform: scale(0.97);
+}
+
+/* Botão de limpar vermelho */
+#limpar {
+  background: linear-gradient(180deg, #dc3545, #8b1e24);
+}
+
+#limpar:hover {
+  background: #ff4e4e;
+  box-shadow: 0 0 10px #ff4e4e;
+}
+
+/* =======================
+   LISTA DE COMPRAS
+======================= */
+#taskList {
+  margin-top: 15px;
+  background: rgba(20, 20, 25, 0.6);
+  border: 2px solid #0aff9d55;
+  border-radius: 20px;
+
+  padding: 20px;
+  width: 100%;
+
+  backdrop-filter: blur(2px);
+  box-shadow: 0 0 18px #0aff9d33;
 }
 
 li {
-    margin: 1rem;
-    background-color: #C45638;
-    padding: 1rem;
-    border-radius: 5px;
-    display: flex;
-    gap: 1rem;
-    justify-content: flex-end;
-    align-items: center;
+  list-style: none;
+  background: linear-gradient(180deg, #361a14, #4d2218);
+  padding: 15px;
+
+  border-radius: 12px;
+  margin: 15px 0;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  color: #ffe1c0;
+
+  border: 1px solid #d6b26d88;
+
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.35),
+              0 0 10px rgba(255, 230, 150, 0.05);
+  transition: 0.3s;
 }
 
+/* efeito YU-GI-OH ao passar o mouse */
+li:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 18px #f6d26b33;
+}
+
+/* os botões dentro dos itens */
 li button {
-    max-block-size: 1.5rem;
-    display: flex;
-    align-items: center;
+  background: #222;
+  border: 1px solid #666;
+  padding: 6px 10px;
+  border-radius: 6px;
 }
 
+li button:hover {
+  background: #00ffaa;
+  color: black;
+  border-color: #00ffaa;
+}
+
+/* Botão excluir estilo “cartão indo pro cemitério” */
 .delete-button {
-    background-color: #ff6347;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
+  background: #ff6347;
+  border: 1px solid #b82e1c;
 }
 
+.delete-button:hover {
+  background: #ff8f78;
+  box-shadow: 0 0 10px #ff8f78;
+}
+
+/* =======================
+   CALCULADORA
+======================= */
 .calculadora {
-    /* background-color: red; */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    justify-items: center;
-    gap: 1rem;
+  background: rgba(0, 0, 0, 0.3);
+  border: 2px solid #00ff8844;
 
+  backdrop-filter: blur(3px);
+  border-radius: 12px;
+
+  padding: 20px;
+  margin-top: 30px;
+  width: 100%;
+
+  box-shadow: 0 0 15px #00ffa866;
 }
 
-.calculadora input {
-  border-radius: 25px;
-  text-align: center;
-  color: #B61E00;
+#resultado {
+  margin: 15px 0;
+  padding: 10px;
 
+  background: #111;
+  color: #00ffbf;
+  border-radius: 8px;
+
+  border: 1px solid #00ffaa55;
+  box-shadow: 0 0 10px #00ff9955;
+
+  font-size: 1.2rem;
+  letter-spacing: 1px;
 }
 
 .maisMenos {
-    display: flex;
-    gap: 2rem;
-    font-size: 20%;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 10px;
 }
-  
-  h2 {
-    color: #f7f7f7;
-    text-shadow: 4px 4px 4px #BD2C0A;
-  }
-  
-  #resultado {
-    margin: 20px 0;
-    padding: 10px;
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    width: 300px;
-    text-align: center;
-  }
-  
-  input[type="number"] {
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    width: calc(100% - 24px); /* Input width minus padding and border */
-  }
-  
-  #limpar {
-    background-color: red;
+
+/* Quantidade: input menor */
+#taskQtd {
+  width: 20%;
+  margin-top: 10px;
+  border-radius: 25px;
+  text-align: center;
+  color: #B61E00;
+}
+
+/* Estilo de item comprado */
+.comprado {
+  opacity: 0.5;
+  text-decoration: line-through;
+}
+
+/* ===========================================
+   ÍCONES MAIS BONITOS
+=========================================== */
+.move-up, .move-down {
+  font-size: 1.3rem;
+  background: #222;
+  border: 1px solid #666;
+  border-radius: 6px;
+}
+
+.delete-button {
+  font-size: 1.2rem;
+  background: #300;
+}
+
+/* ===========================================
+   SWIPE – animação visual
+=========================================== */
+li {
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+/* fundo vermelho quando arrasta pra esquerda */
+li.swipe-left {
+  background: linear-gradient(90deg, #5b0000, #300);
+}
+
+/* fundo verde quando arrasta pra direita */
+li.swipe-right {
+  background: linear-gradient(90deg, #003b1b, #004d22);
+}
+
+/* ===========================================
+   SUAVIDADE QUANDO VAI PARA O FINAL
+=========================================== */
+.comprado {
+  opacity: 0.55;
+  transform: translateY(5px);
+  transition: all 0.35s ease;
+}
+
+.listas-container {
+  width: 100%;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+#listaSelecionada {
+  width: 90%;
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 10px;
+  background: #171717;
+  color: #fff;
+  border: 1px solid #444;
+}
+
+/* Botões de gerenciamento de lista */
+.lista-actions {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.lista-actions button {
+  padding: 8px 14px;
+  font-size: 0.9rem;
+}
+
+/* Remover espaço dos botões que não existem mais */
+li .move-up,
+li .move-down {
+  display: none !important;
+}
+
+/* ==========================
+   CALCULADORA A+C
+========================== */
+
+.calc-display {
+  background: #0a0f0c;
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 15px;
+  font-size: 1.8rem;
+  color: #00ffbf;
+  text-shadow: 0 0 8px #00ffaa;
+  border: 2px solid #00ffaa55;
+  box-shadow: 0 0 15px #00ffaa33;
+}
+
+/* TECLADO */
+.calc-teclado {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.calc-teclado button {
+  padding: 15px;
+  border-radius: 10px;
+  background: #111;
+  color: #eee;
+  border: 1px solid #444;
+  font-size: 1.3rem;
+  transition: 0.2s;
+}
+
+.calc-teclado button:hover {
+  background: #00ffaa;
+  color: black;
+  box-shadow: 0 0 10px #00ffaa;
+}
+
+.calc-teclado .zero {
+  grid-column: span 2;
+}
+
+/* AÇÃO */
+.calc-actions button {
+  width: 48%;
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  background: #b65847;
+  font-size: 1rem;
+  color: white;
+  margin-bottom: 15px;
+}
+
+.calc-actions button:hover {
+  background: #f6d26b;
+  color: black;
+}
+
+/* ATALHOS */
+.calc-atalhos {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.calc-atalhos button {
+  padding: 8px 12px;
+  background: #222;
+  color: #00ffaa;
+  border: 1px solid #00ffaa66;
+  border-radius: 8px;
+}
+
+/* HISTÓRICO */
+.calc-historico {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid #444;
+  padding: 10px;
+  border-radius: 8px;
+  max-height: 120px;
+  overflow-y: auto;
+  font-size: 0.9rem;
+  margin-bottom: 15px;
+}
+
+/* DESFAZER */
+.undo {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+/* LIMPAR */
+.limpar {
+  background: #7a0b0b;
+}
+
+.limpar:hover {
+  background: #ff4444;
+}
+
+/* ANIMAÇÕES */
+.invocar {
+  animation: invocarAnim 0.3s ease;
+}
+
+@keyframes invocarAnim {
+  0% { transform: scale(0.9); color: #ffe29a; }
+  100% { transform: scale(1); color: #00ffbf; }
+}
+
+.drenar {
+  animation: drenarAnim 0.3s ease;
+}
+
+@keyframes drenarAnim {
+  0% { transform: translateY(-3px); opacity: 0.7; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+
+/* ================================
+   RESPONSIVIDADE PARA MOBILE
+================================ */
+
+/* Telas até 768px */
+@media (max-width: 768px) {
+
+  body {
+    padding: 20px 5px;
   }
 
-  #taskList {
-    border: 2px solid black;
-    background-color: #33232D;
-    color: white;
-    border-radius: 20px;
+  .Tasks {
+    width: 100%;
   }
+
+  /* Inputs mais confortáveis */
+  input[type="text"],
+  input[type="number"] {
+    width: 95%;
+    font-size: 1rem;
+  }
+
+  #taskQtd {
+    width: 40%;
+  }
+
+  /* Botões maiores e mais fáceis de clicar */
+  button {
+    width: auto;
+    padding: 12px 18px;
+    font-size: 1rem;
+  }
+
+  /* Lista ocupa toda a largura */
+  #taskList {
+    width: 95%;
+    padding: 10px;
+  }
+
+  /* Itens mais compactos */
+  li {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    text-align: left;
+  }
+
+  li button {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  /* Ações dos botões em linha, ocupando 100% */
+  li .move-up,
+  li .move-down,
+  li .delete-button {
+    width: 32%;
+    text-align: center;
+  }
+
+  /* Calculadora ocupa a tela toda */
+  .calculadora {
+    width: 95%;
+    margin-top: 25px;
+    padding: 15px;
+  }
+
+  #resultado {
+    width: 90%;
+  }
+
+  .maisMenos {
+    gap: 1rem;
+  }
+}
+
+/* Telas até 480px (celulares pequenos) */
+@media (max-width: 480px) {
+
+  h1 {
+    font-size: 1.7rem;
+  }
+
+  h2 {
+    font-size: 1.4rem;
+  }
+
+  input[type="text"],
+  input[type="number"] {
+    font-size: 0.9rem;
+  }
+
+  #taskQtd {
+    width: 50%;
+  }
+
+  li {
+    padding: 12px;
+  }
+
+  .calculadora {
+    padding: 10px;
+  }
+}
