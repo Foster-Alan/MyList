@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", function () {
-
   // --- DOM ELEMENTS ---
   const taskList = document.getElementById("taskList");
   const taskInput = document.getElementById("taskInput");
@@ -25,25 +24,25 @@ document.addEventListener("DOMContentLoaded", function () {
   // ===============================
   //  CARREGAR / SALVAR LISTAS
   // ===============================
-function loadListas() {
-  const listasSalvas = JSON.parse(localStorage.getItem("listasCompras"));
+  function loadListas() {
+    const listasSalvas = JSON.parse(localStorage.getItem("listasCompras"));
 
-  // Se nunca foi salvo ou está corrompido:
-  if (!listasSalvas || typeof listasSalvas !== "object") {
-    return {
-      mensal: [],
-      semanal: [],
-      limpeza: []
-    };
+    // Se nunca foi salvo ou está corrompido:
+    if (!listasSalvas || typeof listasSalvas !== "object") {
+      return {
+        mensal: [],
+        semanal: [],
+        limpeza: [],
+      };
+    }
+
+    // Garante que NUNCA falte uma das 3 listas-base
+    if (!listasSalvas.mensal) listasSalvas.mensal = [];
+    if (!listasSalvas.semanal) listasSalvas.semanal = [];
+    if (!listasSalvas.limpeza) listasSalvas.limpeza = [];
+
+    return listasSalvas;
   }
-
-  // Garante que NUNCA falte uma das 3 listas-base
-  if (!listasSalvas.mensal) listasSalvas.mensal = [];
-  if (!listasSalvas.semanal) listasSalvas.semanal = [];
-  if (!listasSalvas.limpeza) listasSalvas.limpeza = [];
-
-  return listasSalvas;
-}
 
   function saveListas() {
     localStorage.setItem("listasCompras", JSON.stringify(listas));
@@ -76,11 +75,13 @@ function loadListas() {
       const opt = document.createElement("option");
       opt.value = key;
       opt.textContent = nome;
-      listaSelecionada.insertBefore(opt, listaSelecionada.querySelector('option[value="__nova__"]'));
+      listaSelecionada.insertBefore(
+        opt,
+        listaSelecionada.querySelector('option[value="__nova__"]')
+      );
 
       listaSelecionada.value = key;
       listaAtual = key;
-
     } else {
       listaAtual = value;
     }
@@ -138,7 +139,7 @@ function loadListas() {
   function renderListaAtual() {
     taskList.innerHTML = "";
 
-    listas[listaAtual].forEach(t => {
+    listas[listaAtual].forEach((t) => {
       const li = createTaskElement(t.text, t.qtd, t.comprado);
       taskList.appendChild(li);
     });
@@ -171,10 +172,15 @@ function loadListas() {
     const li = document.createElement("li");
 
     li.innerHTML = `
-      <input type="checkbox" class="check-comprado" ${comprado ? "checked" : ""}>
-      <span>${text} (${qtd}x)</span>
-      <button class="delete-button">🗑️</button>
-    `;
+  <input type="checkbox" class="check-comprado" ${comprado ? "checked" : ""}>
+  
+  <div class="item-info">
+    <span class="qtd-badge">${qtd}x</span>
+    <span class="item-text">${text}</span>
+  </div>
+
+  <button class="delete-button">🗑️</button>
+`;
 
     if (comprado) li.classList.add("comprado");
 
@@ -186,13 +192,14 @@ function loadListas() {
   //  SWIPE (direita = comprado, esquerda = excluir)
   // ===============================
   function addSwipeEvents(li) {
-    let startX = 0, endX = 0;
+    let startX = 0,
+      endX = 0;
 
-    li.addEventListener("touchstart", e => {
+    li.addEventListener("touchstart", (e) => {
       startX = e.touches[0].clientX;
     });
 
-    li.addEventListener("touchmove", e => {
+    li.addEventListener("touchmove", (e) => {
       endX = e.touches[0].clientX;
       const diff = endX - startX;
 
@@ -256,7 +263,7 @@ function loadListas() {
   //  ATUALIZAR ARRAY A PARTIR DO DOM
   // ===============================
   function updateListaFromDOM() {
-    listas[listaAtual] = [...taskList.querySelectorAll("li")].map(li => {
+    listas[listaAtual] = [...taskList.querySelectorAll("li")].map((li) => {
       const textFull = li.querySelector("span").textContent;
       const text = textFull.replace(/\(\d+x\)/, "").trim();
       const qtd = parseInt(textFull.match(/\((\d+)x\)/)?.[1] || 1);
@@ -277,13 +284,13 @@ function loadListas() {
       return A - B;
     });
 
-    items.forEach(item => taskList.appendChild(item));
+    items.forEach((item) => taskList.appendChild(item));
   }
 
   // ===============================
   //  CALCULADORA A + C
   // ===============================
-  let calcValorDigitado = ""; 
+  let calcValorDigitado = "";
   let calcTotal = parseFloat(localStorage.getItem("resultado") || "0");
   let historico = JSON.parse(localStorage.getItem("historicoCalc") || "[]");
 
@@ -299,7 +306,7 @@ function loadListas() {
 
   function renderHistorico() {
     historicoDiv.innerHTML = historico
-      .map(item => `<div>${item}</div>`)
+      .map((item) => `<div>${item}</div>`)
       .join("");
     localStorage.setItem("historicoCalc", JSON.stringify(historico));
   }
@@ -308,7 +315,11 @@ function loadListas() {
     if (tipo === "add") calcTotal += valor;
     else if (tipo === "sub") calcTotal -= valor;
 
-    historico.push(`${tipo === "add" ? "+" : "-"} ${valor.toFixed(2)} → ${calcTotal.toFixed(2)}`);
+    historico.push(
+      `${tipo === "add" ? "+" : "-"} ${valor.toFixed(2)} → ${calcTotal.toFixed(
+        2
+      )}`
+    );
 
     localStorage.setItem("resultado", calcTotal.toFixed(2));
 
@@ -322,54 +333,55 @@ function loadListas() {
   }
 
   // =============================
-// MULTIPLICAR VALOR UNITÁRIO
-// =============================
+  // MULTIPLICAR VALOR UNITÁRIO
+  // =============================
 
-// mostrar box de multiplicação
-document.getElementById("multiplicar").onclick = () => {
-  if (!calcValorDigitado) return alert("Digite um valor primeiro.");
-  document.getElementById("multiplicarQtd").value = 1;
-  document.getElementById("multiplicar-box").classList.remove("hidden");
-};
+  // mostrar box de multiplicação
+  document.getElementById("multiplicar").onclick = () => {
+    if (!calcValorDigitado) return alert("Digite um valor primeiro.");
+    document.getElementById("multiplicarQtd").value = 1;
+    document.getElementById("multiplicar-box").classList.remove("hidden");
+  };
 
-// cancelar
-document.getElementById("multiplicarCancelar").onclick = () => {
-  document.getElementById("multiplicar-box").classList.add("hidden");
-};
+  // cancelar
+  document.getElementById("multiplicarCancelar").onclick = () => {
+    document.getElementById("multiplicar-box").classList.add("hidden");
+  };
 
-// aplicar multiplicação
-document.getElementById("multiplicarAplicar").onclick = () => {
-  const qtd = parseInt(document.getElementById("multiplicarQtd").value);
-  if (!qtd || qtd < 1) return;
+  // aplicar multiplicação
+  document.getElementById("multiplicarAplicar").onclick = () => {
+    const qtd = parseInt(document.getElementById("multiplicarQtd").value);
+    if (!qtd || qtd < 1) return;
 
-  const unitario = parseFloat(calcValorDigitado.replace(",", "."));
-  const total = unitario * qtd;
+    const unitario = parseFloat(calcValorDigitado.replace(",", "."));
+    const total = unitario * qtd;
 
-  executar(total, "add");
+    executar(total, "add");
 
-  calcValorDigitado = "";
-  document.getElementById("multiplicar-box").classList.add("hidden");
-};
+    calcValorDigitado = "";
+    document.getElementById("multiplicar-box").classList.add("hidden");
+  };
 
   // TECLADO NUMÉRICO
-document.querySelectorAll(".num").forEach(btn => {
-  btn.addEventListener("click", () => {
-    const char = btn.textContent;
+  document.querySelectorAll(".num").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const char = btn.textContent;
 
-    // Se for vírgula
-    if (char === ",") {
-      if (calcValorDigitado.includes(",") || calcValorDigitado.includes(".")) return;
-      if (calcValorDigitado === "") calcValorDigitado = "0";
-      calcValorDigitado += ",";
+      // Se for vírgula
+      if (char === ",") {
+        if (calcValorDigitado.includes(",") || calcValorDigitado.includes("."))
+          return;
+        if (calcValorDigitado === "") calcValorDigitado = "0";
+        calcValorDigitado += ",";
+        display.textContent = calcValorDigitado;
+        return;
+      }
+
+      // números normais
+      calcValorDigitado += char;
       display.textContent = calcValorDigitado;
-      return;
-    }
-
-    // números normais
-    calcValorDigitado += char;
-    display.textContent = calcValorDigitado;
+    });
   });
-});
 
   // BACKSPACE
   document.getElementById("backspace").onclick = () => {
@@ -391,7 +403,7 @@ document.querySelectorAll(".num").forEach(btn => {
   };
 
   // ATALHOS
-  document.querySelectorAll(".atalho").forEach(btn => {
+  document.querySelectorAll(".atalho").forEach((btn) => {
     btn.addEventListener("click", () => {
       const v = parseFloat(btn.dataset.v);
       executar(v, "add");
@@ -422,5 +434,4 @@ document.querySelectorAll(".num").forEach(btn => {
     atualizarDisplay();
     renderHistorico();
   };
-
 });
