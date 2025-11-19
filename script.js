@@ -321,6 +321,36 @@ function loadListas() {
     display.classList.add(tipo === "add" ? "invocar" : "drenar");
   }
 
+  // =============================
+// MULTIPLICAR VALOR UNITÁRIO
+// =============================
+
+// mostrar box de multiplicação
+document.getElementById("multiplicar").onclick = () => {
+  if (!calcValorDigitado) return alert("Digite um valor primeiro.");
+  document.getElementById("multiplicarQtd").value = 1;
+  document.getElementById("multiplicar-box").classList.remove("hidden");
+};
+
+// cancelar
+document.getElementById("multiplicarCancelar").onclick = () => {
+  document.getElementById("multiplicar-box").classList.add("hidden");
+};
+
+// aplicar multiplicação
+document.getElementById("multiplicarAplicar").onclick = () => {
+  const qtd = parseInt(document.getElementById("multiplicarQtd").value);
+  if (!qtd || qtd < 1) return;
+
+  const unitario = parseFloat(calcValorDigitado.replace(",", "."));
+  const total = unitario * qtd;
+
+  executar(total, "add");
+
+  calcValorDigitado = "";
+  document.getElementById("multiplicar-box").classList.add("hidden");
+};
+
   // TECLADO NUMÉRICO
 document.querySelectorAll(".num").forEach(btn => {
   btn.addEventListener("click", () => {

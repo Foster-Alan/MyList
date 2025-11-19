@@ -421,6 +421,58 @@ li .move-down {
   100% { transform: translateY(0); opacity: 1; }
 }
 
+/* Caixa de multiplicação */
+.mul {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border-radius: 10px;
+  background: #444;
+  color: #eee;
+  font-size: 1rem;
+}
+
+.mul:hover {
+  background: #00ffaa;
+  color: #111;
+}
+
+/* modal simples */
+.mul-box {
+  background: rgba(0,0,0,0.6);
+  border: 1px solid #00ffaa66;
+  border-radius: 10px;
+  padding: 10px;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.mul-box.hidden {
+  display: none;
+}
+
+.mul-input input {
+  width: 80%;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.mul-ok {
+  background: #00ffaa;
+  padding: 10px 15px;
+  border-radius: 8px;
+  margin-right: 5px;
+}
+
+.mul-cancel {
+  background: #aa2222;
+  padding: 10px 15px;
+  border-radius: 8px;
+  color: white;
+}
+
 
 /* ================================
    RESPONSIVIDADE PARA MOBILE

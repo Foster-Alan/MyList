@@ -3,8 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/png" href="public/favicon.png" />
   <link rel="stylesheet" href="styles.css" />
-  <title>Nossa Lista</title>
+  <title>Lista 🛒</title>
 </head>
 
 <body>
@@ -66,6 +67,15 @@
 
   <!-- BOTÕES DE AÇÃO -->
   <div class="calc-actions">
+    <button id="multiplicar" class="mul">✖️ Multiplicar</button>
+    <div id="multiplicar-box" class="mul-box hidden">
+  <p>Quantidade:</p>
+  <div class="mul-input">
+    <input type="number" id="multiplicarQtd" min="1" value="1">
+  </div>
+  <button id="multiplicarAplicar" class="mul-ok">Aplicar</button>
+  <button id="multiplicarCancelar" class="mul-cancel">Cancelar</button>
+</div>
     <button class="add">➕ Somar</button>
     <button class="sub">➖ Subtrair</button>
   </div>
